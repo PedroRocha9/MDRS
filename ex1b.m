@@ -38,6 +38,7 @@ end
 
 figure(1);
 hold on;
+grid on;
 bar(rates, APD_values');
 er = errorbar(rates, APD_values', APD_terms);
 er.Color = [0 0 0];
@@ -49,6 +50,7 @@ hold off;
 
 figure(2);
 hold on;
+grid on;
 bar(rates, PL_values');
 er = errorbar(rates, PL_values', PL_terms);
 er.Color = [0 0 0];
