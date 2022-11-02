@@ -55,6 +55,7 @@ end
 
 figure(1);
 hold on;
+grid on;
 bar(nVoips, PLd_values');
 er = errorbar(nVoips, PLd_values', PLd_terms);
 er.Color = [0 0 0];
@@ -66,6 +67,7 @@ hold off;
 
 figure(2);
 hold on;
+grid on;
 bar(nVoips, APDd_values');
 er = errorbar(nVoips, APDd_values', APDd_terms);
 er.Color = [0 0 0];
