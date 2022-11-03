@@ -1,12 +1,30 @@
 % Exercicio 1
 
 %% 1.c)
-f = 1000000;    %Packet Size in Bytes
-b = 10^-6;
-p_ber10e6 = (1 -(nchoosek(f*8, 0) * b^0 * (1-b)^(f*8))) * 100;
-b = 10^-4;
-p_ber10e4 = (1 - (nchoosek(f*8, 0) * b^0 * (1-b)^(f*8))) * 100;
+% Equal probability for Data Packets with a size different of 64, 110 and
+% 1518 Bytes
+prob_left = (1 - (0.19 + 0.23 + 0.17)) / ((109 - 65 + 1) + (1517 - 111 + 1));
+b = [1e-6 1e-4];                % Values of ber to test
+ploss_ber = [0 0];              % Probabilities of packet loss
 
-fprintf(['Considering that the bit error rate is the only factor that can cause Packet to be lost, the theoretical packet loss (%%)\n ' ...
-    'for a bit error rate of 10^-6 is: %f %%\n' ...
-    'and for a bit error rate of 10^-4 is: %f %%'], p_ber10e6, p_ber10e4);
+% Test the ber values
+for i = 1 : length(b)
+    % Calculate the prob. of having at least 1 error for the given packet
+    % size
+    for packetSize = 64 : 1518
+        if (packetSize == 64)
+            ploss_ber(i) = ploss_ber(i) + (1 -(nchoosek(packetSize*8, 0) * b(i)^0 * (1-b(i))^(packetSize*8))) * 0.19;
+        elseif (packetSize == 110)
+            ploss_ber(i) = ploss_ber(i) + (1 -(nchoosek(packetSize*8, 0) * b(i)^0 * (1-b(i))^(packetSize*8))) * 0.23;
+        elseif (packetSize == 1518)
+            ploss_ber(i) = ploss_ber(i) + (1 -(nchoosek(packetSize*8, 0) * b(i)^0 * (1-b(i))^(packetSize*8))) * 0.17;
+        else
+            ploss_ber(i) = ploss_ber(i) + (1 -(nchoosek(packetSize*8, 0) * b(i)^0 * (1-b(i))^(packetSize*8))) * prob_left;
+        end
+    end
+end
+
+ploss_ber = (ploss_ber ./ (0.19 + 0.23 + 0.17 + ((109 - 65 + 1) + (1517 - 111 + 1)) * prob_left)) * 100;
+
+fprintf(['Considering that the bit error rate is the only factor that can cause Packet to be lost, the theoretical packet loss (%%)\n' ...
+    'for a bit error rate of 10^-6 is: %f %%\nand for a bit error rate of 10^-4 is: %f %%\n'], p_ber(1), p_ber(2));

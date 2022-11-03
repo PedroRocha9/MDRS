@@ -6,7 +6,7 @@ P = 100000;                         % Packets to be transmitted (stoping criteri
 C = 10;                             % Capacity of connectio with 10Mbps
 f = 1000000;                        % Queue Size in Bytes
 N = 20;                             % Times to run the simulation
-b = 10^-6;                          % Bit error rate
+b = 10^-4;                          % Bit error rate
 alfa = 0.1;                         % 90% confidence interval for results
 
 % Variables to store bar graph data
@@ -69,4 +69,4 @@ title('Packet Loss vs Packet Rate');
 hold off;
 
 % packet loss aumenta devido ao ber
-% nao percebo porque o ber diminui o packet delay
+% dizer porque o avg. delay manteve
