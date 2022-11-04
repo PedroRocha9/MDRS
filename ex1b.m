@@ -41,7 +41,7 @@ for i = 1:length(rates)
     PL_terms(i) = term;
 end
 
-% Figure to show the asked results for 1.a) i)    
+% Figure to show the asked results for 1.b) i)    
 figure(1);
 hold on;
 grid on;
@@ -67,6 +67,3 @@ xlabel('Packet Rate (pps)')
 ylabel('Packet Loss (%)')
 title('Packet Loss vs Packet Rate');
 hold off;
-
-% packet loss aumenta devido ao ber
-% dizer porque o avg. delay manteve
