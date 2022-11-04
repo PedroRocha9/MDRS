@@ -88,7 +88,7 @@ while (TRANSMITTEDPACKETSD + TRANSMITTEDPACKETSV) < P               % Stopping c
                     STATE = 1;
                     EventList = [EventList; DEPARTURE, Clock + 8*PacketSize/(C*10^6), PacketSize, Clock, VOIP];
                 else
-                    if QUEUEOCCUPATION + PacketSize <= f
+                    if (QUEUEOCCUPATION + PacketSize)/f <= 0.9   % only accepts VoIP packets if the queue doesn't become higher than 90%
                         QUEUE = [QUEUE;PacketSize , Clock, VOIP];
                         QUEUEOCCUPATION = QUEUEOCCUPATION + PacketSize;
                     else

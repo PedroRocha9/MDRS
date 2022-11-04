@@ -1,4 +1,4 @@
-function [PLd, PLv, APDd, APDv, MPDd, MPDv, TT] = Simulator4(lambda,C,f,P,n)
+function [PLd, PLv, APDd, APDv, MPDd, MPDv, TT] = Simulator4A(lambda,C,f,P,n)
 % INPUT PARAMETERS:
 %  lambda - packet rate (packets/sec)
 %  C      - link bandwidth (Mbps)
@@ -26,6 +26,8 @@ VOIP = 1;
 STATE = 0;          % 0 - connection free; 1 - connection bysy
 QUEUEOCCUPATION= 0; % Occupation of the queue (in Bytes)
 QUEUE= [];          % Size and arriving time instant of each packet in the queue
+
+countlol = 0;
 
 %Statistical Counters:
 TOTALPACKETSD = 0;       % No. of data packets arrived to the system
@@ -73,7 +75,7 @@ while (TRANSMITTEDPACKETSD + TRANSMITTEDPACKETSV) < P               % Stopping c
                     STATE= 1;
                     EventList = [EventList; DEPARTURE, Clock + 8*PacketSize/(C*10^6), PacketSize, Clock, DATA];
                 else
-                    if QUEUEOCCUPATION + PacketSize <= f
+                    if (QUEUEOCCUPATION + PacketSize)/f <= 0.9   % only accepts data packets if the queue doesn't become higher than 90% 
                         QUEUE= [QUEUE;PacketSize , Clock, DATA];
                         QUEUEOCCUPATION= QUEUEOCCUPATION + PacketSize;
                     else

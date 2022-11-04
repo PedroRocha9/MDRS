@@ -2,14 +2,12 @@
 clc;
 clear;
 close all;
-%% 3.b)
+%% 3.a)
 rate = 1500;                %pps
 P = 100000;                 %stoping criteria
 C = 10;                     %10Mbps
 f = 10^4;                   %Bytes
 N = 20;                     %times to simulate
-
-
 voip_flows = [10 20 30 40]; %nr voip packets
 b = 10^-5;                  %bit error rate
 alfa = 1 - 0.9;             %90% confidence interval
@@ -34,7 +32,7 @@ TT = zeros(1, N);
 
 for i = 1:length(voip_flows)
     for it = 1:N
-            [PLdata(it), PLvoip(it), APDdata(it), APDvoip(it), MPDdata(it), MPDvoip(it), TT(it)] = Simulator4(rate, C, f, P, voip_flows(i));
+            [PLdata(it), PLvoip(it), APDdata(it), APDvoip(it), MPDdata(it), MPDvoip(it), TT(it)] = Simulator4B(rate, C, f, P, voip_flows(i));
     end
     
     media = mean(APDdata);
@@ -87,7 +85,6 @@ figure(3);
 hold on;
 grid on;
 bar(voip_flows, APDvoip_values');
-ylim([0 4]);
 er = errorbar(voip_flows, APDvoip_values', APDvoip_terms);
 er.Color = [0 0 0];
 er.LineStyle = 'none';

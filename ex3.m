@@ -64,9 +64,9 @@ ylim([0 4]);
 er = errorbar(voip_flows, APDdata_values', APDdata_terms);
 er.Color = [0 0 0];
 er.LineStyle = 'none';
-xlabel('Number of VOiP Flows')
+xlabel('Number of VoIP Flows')
 ylabel('Avg. Packet Delay of DATA packets(ms)')
-title('Average Packet Delay vs VoIP Flows');
+title('Avg. DATA Packet Delay vs VoIP Flows');
 hold off;
 
 figure(2);
@@ -76,9 +76,9 @@ bar(voip_flows, PLdata_values');
 er = errorbar(voip_flows, PLdata_values', PLdata_terms);
 er.Color = [0 0 0];
 er.LineStyle = 'none';
-xlabel('Number of VOiP Flows')
+xlabel('Number of VoIP Flows')
 ylabel('Packet Loss of DATA packets(%)')
-title('Packet Loss vs VoIP Flows');
+title('DATA Packet Loss vs VoIP Flows');
 hold off;
 
 figure(3);
@@ -89,9 +89,9 @@ ylim([0 4]);
 er = errorbar(voip_flows, APDvoip_values', APDvoip_terms);
 er.Color = [0 0 0];
 er.LineStyle = 'none';
-xlabel('Number of VOiP Flows')
+xlabel('Number of VoIP Flows')
 ylabel('Avg. Packet Delay of VoIP packets(ms)')
-title('Average Packet Delay vs VoIP Flows');
+title('Avg. VoIP Packet Delay vs VoIP Flows');
 hold off;
 
 figure(4);
