@@ -70,7 +70,7 @@ ylim([0 7]);                                                % Set y axis values 
 er = errorbar(nVoips, APDd_values', APDd_terms);            % Set the error bar
 er.Color = [0 0 0];
 er.LineStyle = 'none';
-xlabel('Number of VoIP Packets')
+xlabel('Number of VoIP Flows')
 ylabel('Avg. Data Packet Delay (ms)')
 title('Average Data Packet Delay vs Number of VoIP Flows');
 hold off;
@@ -83,7 +83,7 @@ bar(nVoips, PLd_values');                                   % Bar Graph
 er = errorbar(nVoips, PLd_values', PLd_terms);              % Set the error bar
 er.Color = [0 0 0];
 er.LineStyle = 'none';
-xlabel('Number of VoIP Packets')
+xlabel('Number of VoIP Flows')
 ylabel('Avg. Data Packet Loss (%)')
 title('Avg. Data Packet Loss vs Number of VoIP Flows');
 hold off;
@@ -97,7 +97,7 @@ ylim([0 7]);                                                % Set y axis values 
 er = errorbar(nVoips, APDv_values', APDv_terms);            % Set the error bar
 er.Color = [0 0 0];
 er.LineStyle = 'none';
-xlabel('Number of VoIP Packets')
+xlabel('Number of VoIP Flows')
 ylabel('Avg. VoIP Packet Delay (ms)')
 title('Average VoIP Packet Delay vs Number of VoIP Flows');
 hold off;
@@ -110,7 +110,7 @@ bar(nVoips, PLv_values');                                   % Bar Graph
 er = errorbar(nVoips, PLv_values', PLv_terms);              % Set the error bar
 er.Color = [0 0 0];
 er.LineStyle = 'none';
-xlabel('Number of VoIP Packets')
+xlabel('Number of VoIP Flows')
 ylabel('Avg. VoIP Packet Loss (%)')
 title('Avg. VoIP Packet Loss vs Number of VoIP Flows');
 hold off;

@@ -67,11 +67,3 @@ xlabel('Packet Rate (pps)')
 ylabel('Packet Loss (%)')
 title('Packet Loss vs Packet Rate');
 hold off;
-
-% packet loss mantem-se constante porque o pps nao chega a saturar o
-% tamanho da fila? Sim!
-
-% avg. delay aumenta à medida que pps aumenta, normal, a fila fica mais
-% cheia
-
-% falta se calhar mais conclusoes simples
