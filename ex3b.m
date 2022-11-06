@@ -3,16 +3,13 @@ clc;
 clear;
 close all;
 %% 3.b)
-rate = 1500;                %pps
-P = 100000;                 %stoping criteria
-C = 10;                     %10Mbps
-f = 10^4;                   %Bytes
-N = 20;                     %times to simulate
-
-
-voip_flows = [10 20 30 40]; %nr voip packets
-b = 10^-5;                  %bit error rate
-alfa = 1 - 0.9;             %90% confidence interval
+rate = 1500;                % rate of arrival (pps)
+P = 100000;                 % stoping criteria (nr. of packets)
+C = 10;                     % capacity of the connection: 10Mbps
+f = 10^4;                   % queue size (Bytes)
+N = 20;                     % times to run the simulation
+voip_flows = [10 20 30 40]; % nr voip flows
+alfa = 1 - 0.9;             % 90% confidence interval
 
 APDdata_values = zeros(1, length(voip_flows));
 APDdata_terms = zeros(1, length(voip_flows));

@@ -3,15 +3,15 @@ clc;
 clear;
 close all;
 %% 3.a)
-rate = 1500;                %pps
-P = 100000;                 %stoping criteria
-C = 10;                     %10Mbps
-f = 10^4;                   %Bytes
-N = 20;                     %times to simulate
-voip_flows = [10 20 30 40]; %nr voip packets
-b = 10^-5;                  %bit error rate
-alfa = 1 - 0.9;             %90% confidence interval
+rate = 1500;                % rate of arrival (pps)
+P = 100000;                 % stoping criteria (nr. of packets)
+C = 10;                     % capacity of the connection: 10Mbps
+f = 10^4;                   % queue size (Bytes)
+N = 20;                     % times to run the simulation
+voip_flows = [10 20 30 40]; % nr voip flows
+alfa = 1 - 0.9;             % 90% confidence interval
 
+% Variables to store bar graph data
 APDdata_values = zeros(1, length(voip_flows));
 APDdata_terms = zeros(1, length(voip_flows));
 PLdata_values = zeros(1, length(voip_flows));
@@ -22,6 +22,7 @@ APDvoip_terms = zeros(1, length(voip_flows));
 PLvoip_values = zeros(1, length(voip_flows));
 PLvoip_terms = zeros(1, length(voip_flows));
 
+% Variables to store simulation results
 PLdata = zeros(1, N);
 PLvoip = zeros(1, N);
 APDdata = zeros(1, N);
@@ -29,33 +30,39 @@ APDvoip = zeros(1, N);
 MPDdata = zeros(1, N);
 MPDvoip = zeros(1, N);
 TT = zeros(1, N);
-
+% Test all numbers of VoIP flows
 for i = 1:length(voip_flows)
+    % Run the simulator N times
     for it = 1:N
             [PLdata(it), PLvoip(it), APDdata(it), APDvoip(it), MPDdata(it), MPDvoip(it), TT(it)] = Simulator3(rate, C, f, P, voip_flows(i));
     end
-    
+
+    % Calculate Avg. Packet Delay for DATA packets
     media = mean(APDdata);
     term = norminv(1-alfa/2)*sqrt(var(APDdata)/N);
     APDdata_values(i) = media;
     APDdata_terms(i) = term;
 
+    % Calculate Avg. Packet Delay for VoIP packets
     media = mean(APDvoip);
     term = norminv(1-alfa/2)*sqrt(var(APDvoip)/N);
     APDvoip_values(i) = media;
     APDvoip_terms(i) = term;
 
+    % Calculate Packet Loss for DATA packets
     media = mean(PLdata);
     term = norminv(1-alfa/2)*sqrt(var(PLdata)/N);
     PLdata_values(i) = media;
     PLdata_terms(i) = term;
 
+    % Calculate Packet Loss for VoIP packets
     media = mean(PLvoip);
     term = norminv(1-alfa/2)*sqrt(var(PLvoip)/N);
     PLvoip_values(i) = media;
     PLvoip_terms(i) = term;
 end
 
+% Plot Avg. Packet Delay for DATA packets
 figure(1);
 hold on;
 grid on;
@@ -69,6 +76,7 @@ ylabel('Avg. Packet Delay of DATA packets(ms)')
 title('Avg. DATA Packet Delay vs VoIP Flows');
 hold off;
 
+% Plot Avg. Packet Delay for VoIP packets
 figure(2);
 hold on;
 grid on;
@@ -81,6 +89,7 @@ ylabel('Packet Loss of DATA packets(%)')
 title('DATA Packet Loss vs VoIP Flows');
 hold off;
 
+% Plot Packet Loss for DATA packets
 figure(3);
 hold on;
 grid on;
@@ -94,6 +103,7 @@ ylabel('Avg. Packet Delay of VoIP packets(ms)')
 title('Avg. VoIP Packet Delay vs VoIP Flows');
 hold off;
 
+% Plot Packet Loss for VoIP packets
 figure(4);
 hold on;
 grid on;

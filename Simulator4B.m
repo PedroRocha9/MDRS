@@ -1,4 +1,4 @@
-function [PLd, PLv, APDd, APDv, MPDd, MPDv, TT] = Simulator4(lambda,C,f,P,n)
+function [PLd, PLv, APDd, APDv, MPDd, MPDv, TT] = Simulator4B(lambda,C,f,P,n)
 % INPUT PARAMETERS:
 %  lambda - packet rate (packets/sec)
 %  C      - link bandwidth (Mbps)
