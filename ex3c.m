@@ -60,7 +60,6 @@ figure(1);
 hold on;
 grid on;
 bar(voip_flows, APDdata_values');
-ylim([0 4]);
 er = errorbar(voip_flows, APDdata_values', APDdata_terms);
 er.Color = [0 0 0];
 er.LineStyle = 'none';

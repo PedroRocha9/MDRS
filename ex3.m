@@ -101,7 +101,7 @@ bar(voip_flows, PLvoip_values');
 er = errorbar(voip_flows, PLvoip_values', PLvoip_terms);
 er.Color = [0 0 0];
 er.LineStyle = 'none';
-xlabel('Number of VOiP Flows')
+xlabel('Number of VoIP Flows')
 ylabel('Packet Loss of VoIP packets(%)')
-title('Packet Loss vs VoIP Flows');
+title('VoIP Packet Loss vs VoIP Flows');
 hold off;
