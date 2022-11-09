@@ -2,7 +2,7 @@
 clc;
 clear;
 close all;
-%% 3.a)
+%% 3.d)
 rate = 1500;                % rate of arrival (pps)
 P = 100000;                 % stoping criteria (nr. of packets)
 C = 10;                     % capacity of the connection: 10Mbps
