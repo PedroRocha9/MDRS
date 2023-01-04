@@ -58,5 +58,5 @@ end
 
 nodeEnergy = calculateNodeEnergy(T, sP, nNodes, nc, sol);
 
-fprintf('Network energy consumption: %.4f\n', linkEnergy + nodeEnergy);
+fprintf('Network energy consumption: %.2f\n', linkEnergy + nodeEnergy);
 fprintf('List of links in sleeping mode:%s\n', sleepingNodes);

@@ -72,10 +72,9 @@ energy = bestLinkEnergy + nodeEnergy;
 fprintf("E = %.2f \t W = %.2f \t No. sols = %d \t time = %.2f\n", energy, bestLoad, contador, bestLoadTime);
 
 %% ex1.e)
-for i = 1:5
 clear all
 close all
-%clc
+clc
 
 % Initial variables
 load('InputDataProject2.mat');
@@ -142,4 +141,3 @@ nodeEnergy = calculateNodeEnergy(T, sP, nNodes, nc, bestSol);
 energy = bestLinkEnergy + nodeEnergy;
 
 fprintf("E = %.2f \t W = %.2f \t No. sols = %d \t time = %.2f\n", energy, bestLoad, contador, bestLoadTime);
-end
