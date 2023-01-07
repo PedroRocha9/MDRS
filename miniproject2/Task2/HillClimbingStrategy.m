@@ -1,10 +1,10 @@
-function [sol, Loads, maxLoad, linkEnergy] = HillClimbingStrategy(nNodes, Links, T, sP, nSP, sol, Loads, linkEnergy, L)
+function [sol, Loads, maxLoad, energy] = HillClimbingStrategy(nNodes, Links, T, sP, nSP, sol, Loads, energy, L)
     nFlows = size(T,1);    
     % set the best local variables
     maxLoad = max(max(Loads(:, 3:4)));
     bestLocalLoads = Loads;
     bestLocalSol = sol;
-    bestLocalEnergy = linkEnergy;
+    bestLocalEnergy = energy;
 
     % Hill Climbing Strategy
     improved = true;
@@ -19,22 +19,24 @@ function [sol, Loads, maxLoad, linkEnergy] = HillClimbingStrategy(nNodes, Links,
                     auxSol(flow) = path;
                     % calculate loads
                     [auxLoads, auxLinkEnergy] = calculateLinkLoadEnergy(nNodes, Links, T, sP, auxSol, L, 50);
+                    nodeEnergy = calculateNodeEnergy(T, sP, nNodes, 500, auxSol);
+                    auxEnergy = auxLinkEnergy + nodeEnergy;
                         
                     % check if the current link energy is better then best
                     % local energy
-                    if auxLinkEnergy < bestLocalEnergy
+                    if auxEnergy < bestLocalEnergy
                         bestLocalLoads = auxLoads;
                         bestLocalSol = auxSol;
-                        bestLocalEnergy = auxLinkEnergy;
+                        bestLocalEnergy = auxEnergy;
                     end
                 end
             end
         end
 
-        if bestLocalEnergy < linkEnergy
+        if bestLocalEnergy < energy
             Loads = bestLocalLoads;
             sol = bestLocalSol;
-            linkEnergy = bestLocalEnergy;
+            energy = bestLocalEnergy;
 
             if Loads == Inf
                 maxLoad = Inf;

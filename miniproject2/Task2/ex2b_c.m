@@ -9,8 +9,6 @@ clc
 load('InputDataProject2.mat');
 nNodes = size(Nodes,1);
 nFlows_uni = size(T_uni, 1);
-lc = 50;        % Link capacity of 50Gbps
-nc = 500;       % Node capacity of 500Gbps
 anycastNodes = [5 12];
 
 % Traffic flows for unicast service
@@ -45,17 +43,15 @@ bestEnergy = inf;
 contador = 0;
 while toc(t) < timeLimit
     % greedy randomzied start
-    [sol, startLoads, startMaxLoad, startLinkEnergy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
-
+    [sol, Loads, energy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
+    
     % The first solution should have a maxLinkLoad bellow the maxmium link
     % capacity
-    while startMaxLoad > lc
-        [sol, startLoads, startMaxLoad, startLinkEnergy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
+    while energy == inf
+        [sol, Loads, energy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
     end
 
-    [sol, Loads, maxLoad, linkEnergy] = HillClimbingStrategy(nNodes, Links, T, sP, nSP, sol, startLoads, startLinkEnergy, L);
-    nodeEnergy = calculateNodeEnergy(T, sP, nNodes, nc, sol);
-    energy = linkEnergy + nodeEnergy;   
+    [sol, Loads, maxLoad, energy] = HillClimbingStrategy(nNodes, Links, T, sP, nSP, sol, Loads, energy, L);
     
     if energy < bestEnergy
         bestSol = sol;
@@ -108,23 +104,21 @@ sP = cat(2, sP_uni, sP_any);
 nSP = cat(2, nSP_uni, nSP_any);
 
 t = tic;
-timeLimit = 30;
+timeLimit = 120;
 bestLoad = inf;
 bestEnergy = inf;
 contador = 0;
 while toc(t) < timeLimit
     % greedy randomzied start
-    [sol, startLoads, startMaxLoad, startLinkEnergy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
+    [sol, Loads, energy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
 
     % The first solution should have a maxLinkLoad bellow the maxmium link
     % capacity
-    while startMaxLoad > lc
-        [sol, startLoads, startMaxLoad, startLinkEnergy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
+    while energy == inf
+        [sol, Loads, energy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
     end
 
-    [sol, Loads, maxLoad, linkEnergy] = HillClimbingStrategy(nNodes, Links, T, sP, nSP, sol, startLoads, startLinkEnergy, L);
-    nodeEnergy = calculateNodeEnergy(T, sP, nNodes, nc, sol);
-    energy = linkEnergy + nodeEnergy;   
+    [sol, Loads, maxLoad, energy] = HillClimbingStrategy(nNodes, Links, T, sP, nSP, sol, Loads, energy, L);
     
     if energy < bestEnergy
         bestSol = sol;
