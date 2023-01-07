@@ -104,7 +104,7 @@ sP = cat(2, sP_uni, sP_any);
 nSP = cat(2, nSP_uni, nSP_any);
 
 t = tic;
-timeLimit = 120;
+timeLimit = 30;
 bestLoad = inf;
 bestEnergy = inf;
 contador = 0;
