@@ -46,15 +46,15 @@ bestLinkEnergy = inf;
 contador = 0;
 while toc(t) < timeLimit
     % greedy randomzied start
-    [sol, startLoads, startMaxLoad, startLinkEnergy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
+    [sol, Loads, maxLoad, linkEnergy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
     
     % The first solution should have a maxLinkLoad bellow the maxmium link
     % capacity
-    while startMaxLoad > lc
-        [sol, startLoads, startMaxLoad, startLinkEnergy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
+    while maxLoad > lc
+        [sol, Loads, maxLoad, linkEnergy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
     end
 
-    [sol, Loads, maxLoad, linkEnergy] = HillClimbingStrategy(nNodes, Links, T, sP, nSP, sol, startLoads, startLinkEnergy, L);
+    [sol, Loads, maxLoad, linkEnergy] = HillClimbingStrategy(nNodes, Links, T, sP, nSP, sol, Loads, linkEnergy, L);
 
     if maxLoad < bestLoad
         bestSol = sol;
@@ -69,7 +69,15 @@ end
 nodeEnergy = calculateNodeEnergy(T, sP, nNodes, nc, bestSol);
 energy = bestLinkEnergy + nodeEnergy;
 
+sleepingLinks = '';
+for i = 1 : size(Loads, 1)
+    if max(Loads(i, 3:4)) == 0
+        sleepingLinks = append(sleepingLinks, ' {', num2str(Loads(i,1)), ', ', num2str(Loads(i,2)), '}');
+    end
+end
+
 fprintf("E = %.2f \t W = %.2f \t No. sols = %d \t time = %.2f\n", energy, bestLoad, contador, bestLoadTime);
+fprintf('List of links in sleeping mode:%s\n', sleepingLinks);
 
 %% ex1.e)
 clear all
@@ -117,15 +125,15 @@ bestLinkEnergy = inf;
 contador = 0;
 while toc(t) < timeLimit
     % greedy randomzied start
-    [sol, startLoads, startMaxLoad, startLinkEnergy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
+    [sol, Loads, maxLoad, startLinkEnergy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
     
     % The first solution should have a maxLinkLoad bellow the maxmium link
     % capacity
-    while startMaxLoad > lc
-        [sol, startLoads, startMaxLoad, startLinkEnergy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
+    while maxLoad > lc
+        [sol, Loads, maxLoad, startLinkEnergy] = greedyRandomizedStrategy(nNodes, Links, T, sP, nSP, L);
     end
 
-    [sol, Loads, maxLoad, linkEnergy] = HillClimbingStrategy(nNodes, Links, T, sP, nSP, sol, startLoads, startLinkEnergy, L);
+    [sol, Loads, maxLoad, linkEnergy] = HillClimbingStrategy(nNodes, Links, T, sP, nSP, sol, Loads, startLinkEnergy, L);
 
     if maxLoad < bestLoad
         bestSol = sol;
@@ -140,4 +148,12 @@ end
 nodeEnergy = calculateNodeEnergy(T, sP, nNodes, nc, bestSol);
 energy = bestLinkEnergy + nodeEnergy;
 
+sleepingLinks = '';
+for i = 1 : size(Loads, 1)
+    if max(Loads(i, 3:4)) == 0
+        sleepingLinks = append(sleepingLinks, ' {', num2str(Loads(i,1)), ', ', num2str(Loads(i,2)), '}');
+    end
+end
+
 fprintf("E = %.2f \t W = %.2f \t No. sols = %d \t time = %.2f\n", energy, bestLoad, contador, bestLoadTime);
+fprintf('List of links in sleeping mode:%s\n', sleepingLinks);
