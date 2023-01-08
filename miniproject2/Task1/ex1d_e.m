@@ -95,7 +95,7 @@ for f = 1 : nFlows_uni
     nSP_uni(f)= length(totalCost);
 end
 % Traffic flows for anycast service
-[sP_any, nSP_any] = bestAnycastPaths(nNodes, anycastNodes, L, T_any, k);
+[sP_any, nSP_any] = bestAnycastPaths(nNodes, anycastNodes, L, T_any);
 
 
 % Reconstructing T matrix

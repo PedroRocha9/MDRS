@@ -1,5 +1,4 @@
-function [sP, nSP] = bestAnycastPaths(nNodes, anycastNodes, L, T_any, k)    
-    % Computing up to k shortest path for all flows
+function [sP, nSP] = bestAnycastPaths(nNodes, anycastNodes, L, T_any)    
     sP = cell(1, nNodes);
     nSP = zeros(1, nNodes);
     for n = 1:nNodes

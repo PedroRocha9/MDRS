@@ -49,14 +49,14 @@ for i = 1 : length(Loads)
 end
 fprintf('Worst Link Load: %.2f Gbps\n\n', maxLoad);
 %% ex1.b)
-sleepingNodes = '';
+sleepingLinks = '';
 for i = 1 : size(Loads, 1)
     if max(Loads(i, 3:4)) == 0
-        sleepingNodes = append(sleepingNodes, ' {', num2str(Loads(i,1)), ', ', num2str(Loads(i,2)), '}');
+        sleepingLinks = append(sleepingLinks, ' {', num2str(Loads(i,1)), ', ', num2str(Loads(i,2)), '}');
     end
 end
 
 nodeEnergy = calculateNodeEnergy(T, sP, nNodes, nc, sol);
 
 fprintf('Network energy consumption: %.2f\n', linkEnergy + nodeEnergy);
-fprintf('List of links in sleeping mode:%s\n', sleepingNodes);
+fprintf('List of links in sleeping mode:%s\n', sleepingLinks);
