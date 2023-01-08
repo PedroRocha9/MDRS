@@ -33,7 +33,7 @@ function [sol, Loads, energy] = greedyRandomizedStrategy(nNodes, Links, T, sP, n
                 best_energy = energy;
             end
         end
-        
+
         if path_index > 0
             sol(flow) = path_index;
         else

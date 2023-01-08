@@ -63,8 +63,15 @@ while toc(t) < timeLimit
     contador = contador + 1;
 end
 
-fprintf("E = %.2f \t W = %.2f \t No. sols = %d \t time = %.2f\n", bestEnergy, bestLoad, contador, bestLoadTime);
+sleepingLinks = '';
+for i = 1 : size(Loads, 1)
+    if max(Loads(i, 3:4)) == 0
+        sleepingLinks = append(sleepingLinks, ' {', num2str(Loads(i,1)), ', ', num2str(Loads(i,2)), '}');
+    end
+end
 
+fprintf("E = %.2f \t W = %.2f \t No. sols = %d \t time = %.2f\n", bestEnergy, bestLoad, contador, bestLoadTime);
+fprintf('List of links in sleeping mode:%s\n', sleepingLinks);
 %% ex2.c)
 clear all
 close all
@@ -104,7 +111,7 @@ sP = cat(2, sP_uni, sP_any);
 nSP = cat(2, nSP_uni, nSP_any);
 
 t = tic;
-timeLimit = 30;
+timeLimit = 120;
 bestLoad = inf;
 bestEnergy = inf;
 contador = 0;
@@ -130,4 +137,12 @@ while toc(t) < timeLimit
     contador = contador + 1;
 end
 
+sleepingLinks = '';
+for i = 1 : size(Loads, 1)
+    if max(Loads(i, 3:4)) == 0
+        sleepingLinks = append(sleepingLinks, ' {', num2str(Loads(i,1)), ', ', num2str(Loads(i,2)), '}');
+    end
+end
+
 fprintf("E = %.2f \t W = %.2f \t No. sols = %d \t time = %.2f\n", bestEnergy, bestLoad, contador, bestLoadTime);
+fprintf('List of links in sleeping mode:%s\n', sleepingLinks);
